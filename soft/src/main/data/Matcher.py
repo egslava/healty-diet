@@ -27,12 +27,22 @@ class Matcher:
     ingredients: Sequence[Ingredient]
     target: Cpfc
 
-    def _score(self, dish: Dish) -> float:
+    def _score_len(self, dish: Dish):
+        return len(dish.ingredients) * 100
+
+    def _score_kpfc(self, dish: Dish) -> float:
         cpfc = dish.cpfc()
         dish_pfc = cpfc.pfc.perc()
-        target_pfc = self.target.pfc  # .perc()
+
+        if self.target.pfc.is_perc:
+            target_pfc = self.target.pfc
+        else:
+            target_pfc = self.target.pfc.perc()
 
         return abs(self.target.cals - cpfc.cals) + abs(target_pfc - dish_pfc).sum() * 10000
+
+    def _score(self, dish: Dish):
+        return self._score_kpfc(dish) + self._score_len(dish)
 
     def _random_dish(self) -> Dish:
         day = Dish(ingredients=[])

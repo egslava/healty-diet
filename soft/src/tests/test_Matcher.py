@@ -8,8 +8,12 @@ _dish = Dish([_(title="apple", serv=50, cals=10, prot=2, fats=3, carb=5)] * 2)
 _matcher = Matcher(ingredients, _target)
 
 
-def test__score():
-    assert _matcher._score(_dish) == 0
+def test__score_kpfc():
+    assert _matcher._score_kpfc(_dish) == 0
+
+
+def test__score_kpfc_non_perc():
+    assert Matcher(ingredients, Cpfc(10, Pfc(20, 30, 50)))._score_kpfc(_dish) == 0
 
 
 def test__random_dish():
