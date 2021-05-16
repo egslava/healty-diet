@@ -22,89 +22,66 @@ Sport/longevity diet combinator. Takes into account calories, fats, proteins and
 
 1. ✅ Price minimization.
 2. ✅ Diversity balance.
-3. min/max daily and weekly values (i.e. avoid much nuts a day, but consume some minimal amount of olive oil)
-4. Weekly plans: some products should be eaten several times a week only.
-5. Improve readability of the output.
-6. Add 'dishes' that consist of ingredients.
-7. Sbermarket API? (https://avdeevdenis.github.io/tools-parser-api/)
+3. Super simple recipes. For instance: kefir + oat flakes. Cause it's almost impossible to eat oat flakes without kefir
+4. min/max daily and weekly values (i.e. avoid much nuts a day, but consume some minimal amount of olive oil)
+5. Weekly plans: some products should be eaten several times a week only.
+6. Improve readability of the output.
+8. Sbermarket API? (https://avdeevdenis.github.io/tools-parser-api/)
 
 ### Input example
 
 ```_target = Cpfc(cals=1800, pfc=Pfc(prot=0.35, fats=0.16, carb=0.49, is_perc=True))```
 
 ```
-# name                      serving     kCal    prot    fats    carb    price, ₽
-_("carrot",                 110,        41,     0.93,   0.24,   9.58),
-_("broccoli (1 middle flower)", 20,     28,     3,      0.4,    5.2),
-# _("White early cabbage",    None,       27,     1.8,    0.1,    4.7),
-# _("Bean seed sprouts Mash Dou-ya", None, 30,    3.1,    0.2,    6),
-_("Chicory Elza",           7,          305,    3.8,    0.1,    56),
-_("Kefir cup 1%",           206,        37,     3,      1,      4),
-_("traditional oat flakes ( table spoon)",
-                            6,          352,    12.3,   6.2,    61.8),  # 6g = 1 soup/table spoon
-# _("Avocado",                170,        212,    2,      20,     6),
-# _("0.5 Avocado",            170/2,      212,    2,      20,     6),
-_("0.25 Avocado",           170/4,      212,    2,      20,     6),
-_("Cashew tablespoon",      15,         571,    19,     44,     27),
-_("Peanut tablespoon",      10,         610,    29,     50,     11),
-_("Olive oil tablespoon",   13.5,       898,    0,      99.8,   0),
-_("Casein (32g)",           32,         375,    75,     3,      12.5),
+ingredients: List[Ingredient] = [
+    # name                      serving     kCal    prot    fats    carb    price, ₽
+    _("carrot",                 110,        41,     0.93,   0.24,   9.58,   5.8),
+    _("broccoli (1 middle flower)", 20,     28,     3,      0.4,    5.2,    25.16),
+  # _("White early cabbage",    None,       27,     1.8,    0.1,    4.7),
+  # _("Bean seed sprouts Mash Dou-ya", None, 30,    3.1,    0.2,    6),
+    _("Chicory Elza",           7,          305,    3.8,    0.1,    56,     100),
+    _("Kefir cup 1%",           206,        37,     3,      1,      4,      5),
+    _("traditional oat flakes "
+      "( table spoon)",         6,          352,    12.3,   6.2,    61.8,   5),  # 6g = 1 soup/table spoon
+  # _("Avocado",                170,        212,    2,      20,     6),
+  # _("0.5 Avocado",            170/2,      212,    2,      20,     6),
+    _("0.25 Avocado",           170/4,      212,    2,      20,     6,      25),
+    _("Cashew tablespoon",      15,         571,    19,     44,     27,     30),
+    _("Peanut tablespoon",      10,         610,    29,     50,     11,     30),
+    _("Olive oil tablespoon",   13.5,       898,    0,      99.8,   0,      140),
+    _("Casein (32g)",           32,         375,    75,     3,      12.5,   166),
+]
 ```
 
 ### Example output
 
 ```
           Aim Real % Aim % Real
-Calories 1800 1800             
- Protein  128  136   35%    36%
-    Fats   58   61   16%    16%
-    Carb  179  179   49%    48%
-                                    title   serv    kCal    prot   fats    carb
-0                            0.25 Avocado   42.5   90.10   0.850  8.500   2.550
-1                            Casein (32g)   32.0  120.00  24.000  0.960   4.000
-2                            Casein (32g)   32.0  120.00  24.000  0.960   4.000
-3                            Casein (32g)   32.0  120.00  24.000  0.960   4.000
-4                            Casein (32g)   32.0  120.00  24.000  0.960   4.000
-5                       Cashew tablespoon   15.0   85.65   2.850  6.600   4.050
-6                       Cashew tablespoon   15.0   85.65   2.850  6.600   4.050
-7                       Cashew tablespoon   15.0   85.65   2.850  6.600   4.050
-8                            Chicory Elza    7.0   21.35   0.266  0.007   3.920
-9                            Chicory Elza    7.0   21.35   0.266  0.007   3.920
-10                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-11                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-12                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-13                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-14                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-15                           Chicory Elza    7.0   21.35   0.266  0.007   3.920
-16                      Peanut tablespoon   10.0   61.00   2.900  5.000   1.100
-17                      Peanut tablespoon   10.0   61.00   2.900  5.000   1.100
-18                      Peanut tablespoon   10.0   61.00   2.900  5.000   1.100
-19                      Peanut tablespoon   10.0   61.00   2.900  5.000   1.100
-20                      Peanut tablespoon   10.0   61.00   2.900  5.000   1.100
-21             broccoli (1 middle flower)   20.0    5.60   0.600  0.080   1.040
-22             broccoli (1 middle flower)   20.0    5.60   0.600  0.080   1.040
-23             broccoli (1 middle flower)   20.0    5.60   0.600  0.080   1.040
-24             broccoli (1 middle flower)   20.0    5.60   0.600  0.080   1.040
-25             broccoli (1 middle flower)   20.0    5.60   0.600  0.080   1.040
-26                                 carrot  110.0   45.10   1.023  0.264  10.538
-27                                 carrot  110.0   45.10   1.023  0.264  10.538
-28                                 carrot  110.0   45.10   1.023  0.264  10.538
-29                                 carrot  110.0   45.10   1.023  0.264  10.538
-30                                 carrot  110.0   45.10   1.023  0.264  10.538
-31                                 carrot  110.0   45.10   1.023  0.264  10.538
-32                                 carrot  110.0   45.10   1.023  0.264  10.538
-33                                 carrot  110.0   45.10   1.023  0.264  10.538
-34                                 carrot  110.0   45.10   1.023  0.264  10.538
-35  traditional oat flakes ( table spoon)    6.0   21.12   0.738  0.372   3.708
-36  traditional oat flakes ( table spoon)    6.0   21.12   0.738  0.372   3.708
-37  traditional oat flakes ( table spoon)    6.0   21.12   0.738  0.372   3.708
-title    0.25 AvocadoCasein (32g)Casein (32g)Casein (32...
-serv                                                1429.5
-kCal                                               1800.11
-prot                                               136.449
-fats                                                61.088
-carb                                               178.726
-dtype: object
+Calories 1800 1809             
+ Protein  128  160   35%    42%
+    Fats   58   57   16%    15%
+    Carb  179  168   49%    44%
+                                   title    serv    kCal    prot    fats    carb    price  servs
+0                           0.25 Avocado    42.5   90.10   0.850   8.500   2.550   10.625      1
+1                           Casein (32g)   128.0  480.00  96.000   3.840  16.000  212.480      4
+2                      Cashew tablespoon    30.0  171.30   5.700  13.200   8.100    9.000      2
+3                           Chicory Elza    21.0   64.05   0.798   0.021  11.760   21.000      3
+4                           Kefir cup 1%  1236.0  457.32  37.080  12.360  49.440   61.800      6
+5                      Peanut tablespoon    30.0  183.00   8.700  15.000   3.300    9.000      3
+6             broccoli (1 middle flower)    40.0   11.20   1.200   0.160   2.080   10.064      2
+7                                 carrot   550.0  225.50   5.115   1.320  52.690   31.900      5
+8  traditional oat flakes ( table spoon)    36.0  126.72   4.428   2.232  22.248    1.800      6
+serv     2113.500
+kCal     1809.190
+prot      159.871
+carb      168.168
+fats       56.633
+price     367.669
+servs      32.000
+dtype: float64
+
+Process finished with exit code 0
+
 ```
 
 # Theory
