@@ -20,11 +20,13 @@ Sport/longevity diet combinator. Takes into account calories, fats, proteins and
 
 #### In the near future:
 
-1. Price minimization.
-1. Diversity balance.
-1. Weekly plans: some products should be eaten several times a week only.
-1. Improve readability of the output.
-1. Add 'dishes' that consist of ingredients.
+1. ✅ Price minimization.
+2. ✅ Diversity balance.
+3. min/max daily and weekly values (i.e. avoid much nuts a day, but consume some minimal amount of olive oil)
+4. Weekly plans: some products should be eaten several times a week only.
+5. Improve readability of the output.
+6. Add 'dishes' that consist of ingredients.
+7. Sbermarket API? (https://avdeevdenis.github.io/tools-parser-api/)
 
 ### Input example
 

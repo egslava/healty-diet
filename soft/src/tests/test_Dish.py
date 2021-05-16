@@ -1,5 +1,6 @@
 from Dish import Dish
 from data.Cpfc import Cpfc, Pfc
+from data.ingredients import _
 
 
 def test_cpfc_zero():
@@ -8,7 +9,11 @@ def test_cpfc_zero():
 
 
 def test_cpfc_one():
-    from data.ingredients import _
-    dish = Dish([_("carrot", serv=50, cals=2, prot=4, fats=8, carb=16)])
+    dish = Dish([_("carrot", serv=50, cals=2, prot=4, fats=8, carb=16, price=1)])
     expected = Cpfc(cals=1, pfc=Pfc(prot=2, fats=4, carb=8))
     assert dish.cpfc() == expected
+
+
+def test_price():
+    dish = Dish([_("carrot", serv=50, cals=2, prot=4, fats=8, carb=16, price=1000)] * 3)
+    assert dish.price() == 1000 / 2 * 3

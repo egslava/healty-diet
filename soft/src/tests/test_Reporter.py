@@ -21,5 +21,5 @@ def test_report_cpfc():
 def test_report():
     _target = Cpfc(1800, Pfc(0.35, 0.16, 0.49, is_perc=True))
     from data.ingredients import _
-    _meal = Dish([_("carrot", serv=50, cals=2, prot=4, fats=8, carb=16)])
+    _meal = Dish([_("carrot", serv=50, cals=2, prot=4, fats=8, carb=16, price=0)])
     report_meal(_meal)

@@ -41,9 +41,12 @@ def report_meal(meal: Dish) -> DataFrame:
     for _i in meal.ingredients:
         _cpfc = _i.cpfc()
         _pfc = _cpfc.pfc
-        _rows.append([_i.title, _i.serv, _cpfc.cals, _pfc.prot, _pfc.fats, _pfc.carb])
+        _rows.append([_i.title, _i.serv(), _cpfc.cals, _pfc.prot, _pfc.fats, _pfc.carb, _i.price()])
 
-    return pd.DataFrame(columns=["title", "serv", "kCal", "prot", "fats", "carb"], data=_rows)
+    df = pd.DataFrame(columns=["title", "serv", "kCal", "prot", "fats", "carb", "price"], data=_rows)
+    df['servs'] = 1
+    df = df.groupby("title").sum().reset_index()
+    return df
 
 # print(meal.cpfc().kCal, "/", target.kCal)
 # print("Prot: ", meal.cpfc().pfc.prot, "/", target.pfc.prot, f'({meal.cpfc().pfc.perc().prot}/{target.pfc.prot})')
